@@ -7,7 +7,7 @@ task:
   name: "Setting Up, Syncing, Building and Uploading..."
   timeout_in: 120m   
   container:
-      image: inok2341/anu:latest
+      image: anggit86/dev:latest
       cpu: 8
       memory: 32G
         
