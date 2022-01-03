@@ -12,7 +12,7 @@ task:
       memory: 32G
         
   Build-Env-Setup_background_script:
-       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Setup Build"
+       - curl -s https://api.telegram.org/bot$tokentl/sendMessage -d chat_id=$idtl -d text="Setup Build"
        - export DEBIAN_FRONTEND=noninteractive
        - apt update
        - apt install sudo
@@ -50,11 +50,11 @@ task:
       - rm -rf hardware/qcom-caf/msm8996/audio
       - rm -rf hardware/qcom-caf/msm8996/display
       - rm -rf hardware/qcom-caf/msm8996/media
-      - git clone --depth=1 https://github.com/PixelExperience/hardware_qcom-caf_msm8996_r_audio -b eleven hardware/qcom-caf/msm8996/audio
-      - git clone --depth=1 https://github.com/PixelExperience/hardware_qcom-caf_msm8996_r_display -b elevenhardware/qcom-caf/msm8996/display
-      - git clone --depth=1 https://github.com/PixelExperience/hardware_qcom-caf_msm8996_r_media -b eleven hardware/qcom-caf/msm8996/media
+      - git clone -b eleven https://github.com/rk134/hardware_qcom-caf_msm8996-r_display.git display
+      - git clone -b eleven https://github.com/PixelExperience/hardware_qcom-caf_msm8996-r_audio.git audio
+      - git clone -b eleven https://github.com/PixelExperience/hardware_qcom-caf_msm8996-r_media.git media
       - git clone -b main https://github.com/rk134/epyc-clang.git prebuilts/clang/host/linux-x86/clang-proton --depth 1
-      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Sync Completed!"
+      - curl -s https://api.telegram.org/bot$tokentl/sendMessage -d chat_id=$idtl -d text="Sync Completed!"
       - echo "============================"
       - echo "Sync Completed!"
       - echo "============================"
@@ -65,7 +65,7 @@ task:
       - echo "============================"
 #      - ./collect.sh
       - ./final.sh
-      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build $(cd /tmp/rom/out/target/product/vince/ && ls crdroid*.zip) Completed!"
+      - curl -s https://api.telegram.org/bot$tokentl/sendMessage -d chat_id=$idtl -d text="Build $(cd /tmp/rom/out/target/product/vince/ && ls crdroid*.zip) Completed!"
       - echo "============================"
       - echo "Build Completed!"
       - echo "============================"
@@ -74,14 +74,14 @@ task:
       - echo "============================"
       - echo "Uploading the Build...."
       - echo "============================"
-      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Uploading Build $(cd /tmp/rom/out/target/product/vince/ && ls cdroid*.zip)"
+      - curl -s https://api.telegram.org/bot$tokentl/sendMessage -d chat_id=$idtl -d text="Uploading Build $(cd /tmp/rom/out/target/product/vince/ && ls cdroid*.zip)"
 #      - rclone copy /tmp/rom/out/target/product/juice/Nusantara*.zip inok:juice -P
-      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build $(cd /tmp/rom/out/target/product/vince/ && ls crdroid*.zip) Uploaded Successfully!"
-      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Download link https://retarded-sprout.axsp.workers.dev/vince/$(cd /tmp/rom/out/target/product/vince/ && ls crdroid*.zip)"
-      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Compres ccache"
+      - curl -s https://api.telegram.org/bot$tokentl/sendMessage -d chat_id=$idtl -d text="Build $(cd /tmp/rom/out/target/product/vince/ && ls crdroid*.zip) Uploaded Successfully!"
+      - curl -s https://api.telegram.org/bot$tokentl/sendMessage -d chat_id=$idtl -d text="Download link https://retarded-sprout.axsp.workers.dev/vince/$(cd /tmp/rom/out/target/product/vince/ && ls crdroid*.zip)"
+      - curl -s https://api.telegram.org/bot$tokentl/sendMessage -d chat_id=$idtl -d text="Compres ccache"
       - ./ziping.sh
       - cd /tmp
-      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Uploading ccache...."
+      - curl -s https://api.telegram.org/bot$tokentl/sendMessage -d chat_id=$idtl -d text="Uploading ccache...."
       - rclone copy ccache.tar.gz ccache:crdroid -P
       - echo " "
       - echo "============================"
