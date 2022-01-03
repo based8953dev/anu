@@ -44,7 +44,7 @@ task:
       - repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
       # DT/VT/KT/TC
       - git clone --depth=1 https://github.com/rk134/device_xiaomi_vince -b crdroid-A11 device/xiaomi/vince
-      - git clone --depth=1 https://gitlab.com/rk134/vendor_xiaomi_vince --single-branch -b arrow-11.0 vendor/xiaomi/vince
+      - git clone --depth=1 https://github.com/rk134/vendor_xiaomi_vince --single-branch -b arrow-11.0 vendor/xiaomi/vince
       - git clone --depth=1 https://github.com/rk134/kernel_threadripper_vince --single-branch -b threadripper-non-oc kernel/xiaomi/vince
       # HALS
       - rm -rf hardware/qcom-caf/msm8996/audio
@@ -53,6 +53,7 @@ task:
       - git clone --depth=1 https://github.com/PixelExperience/hardware_qcom-caf_msm8996_r_audio -b eleven hardware/qcom-caf/msm8996/audio
       - git clone --depth=1 https://github.com/PixelExperience/hardware_qcom-caf_msm8996_r_display -b elevenhardware/qcom-caf/msm8996/display
       - git clone --depth=1 https://github.com/PixelExperience/hardware_qcom-caf_msm8996_r_media -b eleven hardware/qcom-caf/msm8996/media
+      - git clone -b main https://github.com/rk134/epyc-clang.git prebuilts/clang/host/linux-x86/clang-proton --depth 1
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Sync Completed!"
       - echo "============================"
       - echo "Sync Completed!"
