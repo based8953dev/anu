@@ -38,7 +38,7 @@ task:
       - echo "============================"
       - echo "Syncing The Sources..."
       - echo "============================"
-      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Start sync Source"
+      - curl -s https://api.telegram.org/bot$tokentl/sendMessage -d chat_id=$idtl -d text="Source is syncing! Please wait."
       - cd /tmp/rom
       - repo init -q --no-repo-verify --depth=1 -u git://github.com/crdroidandroid/android.git -b 11.0 -g default,-device,-mips,-darwin,-notdefault
       - repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
@@ -51,7 +51,7 @@ task:
       - rm -rf hardware/qcom-caf/msm8996/display
       - rm -rf hardware/qcom-caf/msm8996/media
       - git clone --depth=1 https://github.com/PixelExperience/hardware_qcom-caf_msm8996_r_audio -b eleven hardware/qcom-caf/msm8996/audio
-      - git clone --depth=1 https://github.com/PixelExperience/hardware_qcom-caf_msm8996_r_display -b elevenhardware/qcom-caf/msm8996/display
+      - git clone --depth=1 https://github.com/rk134/hardware_qcom-caf_msm8996_r_display -b eleven hardware/qcom-caf/msm8996/display
       - git clone --depth=1 https://github.com/PixelExperience/hardware_qcom-caf_msm8996_r_media -b eleven hardware/qcom-caf/msm8996/media
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Sync Completed!"
       - echo "============================"
@@ -64,7 +64,7 @@ task:
       - echo "============================"
 #      - ./collect.sh
       - ./final.sh
-      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build $(cd /tmp/rom/out/target/product/vince/ && ls crdroid*.zip) Completed!"
+      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build $(cd /tmp/rom/out/target/product/vince/ && ls crDroid*.zip) Completed!"
       - echo "============================"
       - echo "Build Completed!"
       - echo "============================"
@@ -73,11 +73,11 @@ task:
       - echo "============================"
       - echo "Uploading the Build...."
       - echo "============================"
-      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Uploading Build $(cd /tmp/rom/out/target/product/vince/ && ls cdroid*.zip)"
-#      - rclone copy /tmp/rom/out/target/product/juice/Nusantara*.zip inok:juice -P
-      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build $(cd /tmp/rom/out/target/product/vince/ && ls crdroid*.zip) Uploaded Successfully!"
-      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Download link https://retarded-sprout.axsp.workers.dev/vince/$(cd /tmp/rom/out/target/product/vince/ && ls crdroid*.zip)"
-      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Compres ccache"
+      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Uploading Build $(cd /tmp/rom/out/target/product/vince/ && ls crDroid*.zip)"
+      - rclone copy /tmp/rom/out/target/product/vince/crDroid*.zip ccache:vince -P
+      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build $(cd /tmp/rom/out/target/product/vince/ && ls crDroid*.zip) Uploaded Successfully!"
+      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Download link https://retarded-sprout.axsp.workers.dev/vince/$(cd /tmp/rom/out/target/product/vince/ && ls crDroid*.zip)"
+      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Compressing ccache"
       - ./ziping.sh
       - cd /tmp
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Uploading ccache...."
