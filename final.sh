@@ -9,5 +9,5 @@ ccache -o compression=true
 ccache -z
 
 . build/envsetup.sh
-lunch nad_juice-userdebug
-mka nad -j8
+lunch lineage_vince-eng
+mka bacon 
