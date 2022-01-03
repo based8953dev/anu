@@ -1,7 +1,7 @@
 env:
-    rcloneconfig: "ENCRYPTED[81f2ea42a1bb72f5514f01604e25bb9057eb0b6f1b0f5a18434dd7175df07619a880e75ecb9597e10e69fba44553fe84]"
-    tokentl: "ENCRYPTED[635e0f6a0eba8b826946060570abec570da283211dd3be25ba50ff895855fd6f35aa1181acdbbb20ec3331f16cde6bbd]"
-    idtl: "ENCRYPTED[34e83ce99a26a43722c25a9237e72beb606357204ef3029e5fe641f449ebd90db2ae3b7a2676bf686c62ffa9606f48db]"
+    rcloneconfig: 
+    tokentl: 
+    idtl: 
 
 task:
   name: "Setting Up, Syncing, Building and Uploading..."
@@ -24,7 +24,7 @@ task:
        - git config --global user.name "I-n-o-k"
        - git config --global user.email "inok.dr189@gmail.com"
        - mkdir -p /tmp/ccache
-       - rclone copy inok:nusantara/ccache.tar.gz /tmp -P
+       - rclone copy ccache:crdroid/ccache.tar.gz /tmp -P
        - cd /tmp
        - time tar xf ccache.tar.gz
        - cd /tmp
@@ -40,21 +40,19 @@ task:
       - echo "============================"
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Start sync Source"
       - cd /tmp/rom
-      - repo init -q --no-repo-verify --depth=1 -u https://github.com/NusantaraProject-ROM/android_manifest -b 11 -g default,-device,-mips,-darwin,-notdefault
+      - repo init -q --no-repo-verify --depth=1 -u git://github.com/crdroidandroid/android.git -b 11.0 -g default,-device,-mips,-darwin,-notdefault
       - repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
       # DT/VT/KT/TC
-      - git clone --depth=1 https://github.com/I-n-o-k/device_xiaomi_juice -b anu device/xiaomi/juice
-      - git clone --depth=1 https://gitlab.com/I-n-o-k/vendor-lime --single-branch -b 11ABT vendor/xiaomi/juice
-      - git clone --depth=1 https://github.com/I-n-o-k/android_kernel_xiaomi_bengal --single-branch -b 11.0 kernel/xiaomi/juice
+      - git clone --depth=1 https://github.com/rk134/device_xiaomi_vince -b crdroid-A11 device/xiaomi/vince
+      - git clone --depth=1 https://gitlab.com/rk134/vendor_xiaomi_vince --single-branch -b arrow-11.0 vendor/xiaomi/vince
+      - git clone --depth=1 https://github.com/rk134/kernel_threadripper_vince --single-branch -b threadripper-non-oc kernel/xiaomi/vince
       # HALS
-      - rm -rf hardware/qcom-caf/sm8250/audio
-      - rm -rf hardware/qcom-caf/sm8250/display
-      - rm -rf hardware/qcom-caf/sm8250/media
-      - rm -rf external/json-c
-      - git clone --depth=1 https://github.com/I-n-o-k/hardware_qcom-caf_sm8250_audio hardware/qcom-caf/sm8250/audio
-      - git clone --depth=1 https://github.com/I-n-o-k/hardware_qcom-caf_sm8250_display hardware/qcom-caf/sm8250/display
-      - git clone --depth=1 https://github.com/I-n-o-k/hardware_qcom-caf_sm8250_media hardware/qcom-caf/sm8250/media
-      - git clone --depth=1 https://github.com/LineageOS/android_external_json-c -b lineage-18.1 external/json-c
+      - rm -rf hardware/qcom-caf/msm8996/audio
+      - rm -rf hardware/qcom-caf/msm8996/display
+      - rm -rf hardware/qcom-caf/msm8996/media
+      - git clone --depth=1 https://github.com/PixelExperience/hardware_qcom-caf_msm8996_audio hardware/qcom-caf/msm8996/audio
+      - git clone --depth=1 https://github.com/PixelExperience/hardware_qcom-caf_msm8996_display hardware/qcom-caf/msm8996/display
+      - git clone --depth=1 https://github.com/PixelExperience/hardware_qcom-caf_msm8996_media hardware/qcom-caf/msm8996/media
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Sync Completed!"
       - echo "============================"
       - echo "Sync Completed!"
@@ -66,7 +64,7 @@ task:
       - echo "============================"
 #      - ./collect.sh
       - ./final.sh
-      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build $(cd /tmp/rom/out/target/product/juice/ && ls Nusantara*.zip) Completed!"
+      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build $(cd /tmp/rom/out/target/product/vince/ && ls crdroid*.zip) Completed!"
       - echo "============================"
       - echo "Build Completed!"
       - echo "============================"
@@ -75,15 +73,15 @@ task:
       - echo "============================"
       - echo "Uploading the Build...."
       - echo "============================"
-      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Uploading Build $(cd /tmp/rom/out/target/product/juice/ && ls Nusantara*.zip)"
+      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Uploading Build $(cd /tmp/rom/out/target/product/vince/ && ls cdroid*.zip)"
 #      - rclone copy /tmp/rom/out/target/product/juice/Nusantara*.zip inok:juice -P
-      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build $(cd /tmp/rom/out/target/product/juice/ && ls Nusantara*.zip) Uploaded Successfully!"
-      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Download link http://anu.inok189.workers.dev/juice/$(cd /tmp/rom/out/target/product/juice/ && ls Nusantara*.zip)"
+      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build $(cd /tmp/rom/out/target/product/vince/ && ls crdroid*.zip) Uploaded Successfully!"
+      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Download link https://retarded-sprout.axsp.workers.dev/vince/$(cd /tmp/rom/out/target/product/vince/ && ls crdroid*.zip)"
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Compres ccache"
       - ./ziping.sh
       - cd /tmp
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Uploading ccache...."
-      - rclone copy ccache.tar.gz inok:nusantara -P
+      - rclone copy ccache.tar.gz ccache:crdroid -P
       - echo " "
       - echo "============================"
       - echo "Build Uploaded Successfully!"
