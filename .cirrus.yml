@@ -44,7 +44,7 @@ task:
       - repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
       # DT/VT/KT/TC
       - git clone --depth=1 https://github.com/rk134/device_xiaomi_vince -b crdroid-A11 device/xiaomi/vince
-      - git clone --depth=1 https://github.com/rk134/vendor_xiaomi_vince --single-branch -b arrow-11.0 vendor/xiaomi/vince
+      - git clone --depth=1 https://github.com/rxhulkxnt44/vendor_xiaomi_vince --single-branch -b arrow-11.0 vendor/xiaomi/vince
       - git clone --depth=1 https://github.com/rk134/kernel_threadripper_vince --single-branch -b threadripper-non-oc kernel/xiaomi/vince
       # HALS
       - rm -rf hardware/qcom-caf/msm8996/audio
