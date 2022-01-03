@@ -1,7 +1,7 @@
 env:
-    rcloneconfig: 
-    tokentl: 
-    idtl: 
+    rcloneconfig: "ENCRYPTED[bed46674f32ce66a3487b0809e17f020b3c79af4573873f7b71aef9cc8a9f315942cc14ea1c26652db86e8580dde2b36]"
+    tokentl: "ENCRYPTED[8be074e0eb87581d90520dab481d7700d00d3c075bf463c880349b35adeda3488a9c0c8a6897bcdba67db6cb7524dd24]"
+    idtl: "ENCRYPTED[b79fc9b053374c981288804749d5fed14ca4b28c3bbd0f0c0ed0298d495af0013ff30329d29569e412da041c03c84531]"
 
 task:
   name: "Setting Up, Syncing, Building and Uploading..."
@@ -21,8 +21,8 @@ task:
        - DEBIAN_FRONTEND=noninteractive
        - sudo apt install python3 -y
        - sudo ln -sf /usr/bin/python3 /usr/bin/python
-       - git config --global user.name "I-n-o-k"
-       - git config --global user.email "inok.dr189@gmail.com"
+       - git config --global user.name "based8953dev"
+       - git config --global user.email "tecmemeyt@gmail.com"
        - mkdir -p /tmp/ccache
        - rclone copy ccache:crdroid/ccache.tar.gz /tmp -P
        - cd /tmp
@@ -50,9 +50,9 @@ task:
       - rm -rf hardware/qcom-caf/msm8996/audio
       - rm -rf hardware/qcom-caf/msm8996/display
       - rm -rf hardware/qcom-caf/msm8996/media
-      - git clone --depth=1 https://github.com/PixelExperience/hardware_qcom-caf_msm8996_audio hardware/qcom-caf/msm8996/audio
-      - git clone --depth=1 https://github.com/PixelExperience/hardware_qcom-caf_msm8996_display hardware/qcom-caf/msm8996/display
-      - git clone --depth=1 https://github.com/PixelExperience/hardware_qcom-caf_msm8996_media hardware/qcom-caf/msm8996/media
+      - git clone --depth=1 https://github.com/PixelExperience/hardware_qcom-caf_msm8996_r_audio -b eleven hardware/qcom-caf/msm8996/audio
+      - git clone --depth=1 https://github.com/PixelExperience/hardware_qcom-caf_msm8996_r_display -b elevenhardware/qcom-caf/msm8996/display
+      - git clone --depth=1 https://github.com/PixelExperience/hardware_qcom-caf_msm8996_r_media -b eleven hardware/qcom-caf/msm8996/media
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Sync Completed!"
       - echo "============================"
       - echo "Sync Completed!"
